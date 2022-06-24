@@ -17,6 +17,7 @@ const GameGrid = () => {
   `;
 
   const totalSize = difficult.gridSize[0] * difficult.gridSize[1];
+
   const allCells = [];
   const allGameCells = [];
   for (let i = 0; i < totalSize; i++) {
@@ -30,8 +31,6 @@ const GameGrid = () => {
   useEffect(() => {
     setGameCells(allGameCells);
   }, []);
-
-  console.log(gameCells);
 
   return <GridContainer>{allCells.map((elm) => elm)}</GridContainer>;
 };
