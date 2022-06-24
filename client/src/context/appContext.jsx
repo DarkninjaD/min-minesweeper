@@ -3,17 +3,19 @@ import React, { useContext, useState } from "react";
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  const [gameCells, setGameCells] = useState([
+  const [gameCells, setGameCells] = useState([]);
+
+  /*
     {
       location: 0,
       bomb: false,
       tally: 0,
     },
-  ]);
+  */
 
   const [difficult, setDifficult] = useState({});
-  // inside said object has {bombFlagAmount: #, gridSize: #}
-  const [player, setPlayer] = useState("readyPlayerOne");
+  // inside said object has {bombFlagAmount: #, gridSize: [Width, Height]}
+  const [player, setPlayer] = useState();
 
   const values = {
     gameCells,
@@ -30,8 +32,8 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        values,
-        setters,
+        ...values,
+        ...setters,
       }}
     >
       {children}

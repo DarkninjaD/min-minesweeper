@@ -8,7 +8,8 @@ const Button = ({ label, onClick, type, goTo }) => {
 
   const doActions = async () => {
     if (onClick) {
-      await onClick;
+      console.log("running onclick");
+      await onClick();
     }
 
     if (goTo) {

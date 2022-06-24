@@ -1,5 +1,5 @@
 import React from "react";
 const LeaderBoardPage = () => {
-  return <div>LeaderBoardPage</div>;
+  return <div>Under Development</div>;
 };
 export default LeaderBoardPage;

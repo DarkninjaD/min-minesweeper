@@ -1,12 +1,13 @@
 import React from "react";
 import Button from "../components/Button/Button";
+import { useAppContext } from "../context/appContext";
+import setUpGame from "../helper/setUpGame";
+
 const MainPage = () => {
-  const handleStartGame = () => {
-    console.log("ding");
-  };
-  const handleUnderDev = () => {
-    alert("Under Dev");
-  };
+  const { difficult, player } = useAppContext();
+
+  const handleStartGame = setUpGame(difficult, player);
+
   return (
     <div>
       <h1>Mine Sweeper</h1>
