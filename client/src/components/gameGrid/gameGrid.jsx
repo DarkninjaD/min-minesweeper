@@ -18,6 +18,7 @@ const GameGrid = () => {
 
   const allCells = [];
   const allGameCells = [];
+  //buildGame() // returns Array of GameCells
   for (let i = 0; i < totalSize; i++) {
     allGameCells.push({
       location: i,
