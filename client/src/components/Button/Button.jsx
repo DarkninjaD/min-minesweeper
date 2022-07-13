@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const Button = ({ label, onClick, type, goTo }) => {
-  // {label: string, action: functions, type: ?, goTo: string but format for url}
   const nav = useNavigate();
 
   const doActions = async () => {

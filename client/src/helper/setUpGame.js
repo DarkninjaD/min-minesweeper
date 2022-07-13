@@ -1,5 +1,4 @@
-import React from "react";
-import { easy, medium, hard, godMode } from "../utils/difficult";
+import { easy } from "../utils/difficult";
 import { useAppContext } from "../context/appContext";
 
 const SetUpGame = (difficult, playerName) => {
@@ -13,7 +12,6 @@ const SetUpGame = (difficult, playerName) => {
       setPlayer("readyPlayerOne");
       console.log("setting default player");
     }
-
     console.log("new game set");
   };
 };
