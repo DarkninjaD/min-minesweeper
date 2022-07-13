@@ -4,24 +4,28 @@ import { useAppContext } from "../../context/appContext";
 
 const GameCell = ({ refObj }) => {
   const [clicked, setClicker] = useState(false);
-  const { setGameCells, gameCells } = useAppContext();
+  const { gameCells } = useAppContext();
+  // console.log(gameCells[refObj]);
   const bombCheck = (e) => {
     setClicker(true);
-    if (!refObj.bomb) {
+    if (!gameCells[refObj].bomb) {
       // bombLeft(refObj.location)
       // bombRight(refObj.location)
       // bombUp(refObj.location)
       // bombDown(refObj.location)
     }
   };
+  useEffect(() => {
+    setClicker(true);
+  });
 
   return (
     <>
       {clicked ? (
-        refObj.bomb ? (
+        gameCells[refObj].bomb ? (
           <GameCellBomb />
         ) : (
-          <GameCellSafe> {refObj.tally}</GameCellSafe>
+          <GameCellSafe> {gameCells[refObj].tally}</GameCellSafe>
         )
       ) : (
         <GameCellHidden onClick={(e) => bombCheck(e)} />
@@ -31,6 +35,7 @@ const GameCell = ({ refObj }) => {
 };
 
 export default GameCell;
+
 const GameCellHidden = styled.div`
   display: flex;
   justify-self: center;

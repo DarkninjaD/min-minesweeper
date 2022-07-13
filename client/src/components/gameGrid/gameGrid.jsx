@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { useAppContext } from "../../context/appContext";
-import GameCell from "../../components/gameCell/gameCell";
 import { useEffect } from "react";
+import buildGame from "../../utils/BuildGame";
 
 const GameGrid = () => {
-  const { difficult, gameCells, setGameCells } = useAppContext();
+  const { difficult, setGameCells } = useAppContext();
   const GridContainer = styled.div`
     display: grid;
     min-width: 700px;
@@ -14,25 +14,16 @@ const GameGrid = () => {
     grid-auto-rows: 8vh;
   `;
 
-  const totalSize = difficult.gridSize[0] * difficult.gridSize[1];
+  const [allCellComponent, allCellData] = buildGame(difficult);
 
-  const allCells = [];
-  const allGameCells = [];
-  //buildGame() // returns Array of GameCells
-  for (let i = 0; i < totalSize; i++) {
-    allGameCells.push({
-      location: i,
-      bomb: false,
-      tally: 0,
-    });
-    allCells.push(<GameCell key={i} refObj={allGameCells[i]} />);
-  }
   useEffect(() => {
-    setGameCells(allGameCells);
-    console.log(gameCells);
+    setGameCells(allCellData);
+    // NOTE: I don't know why but if add allCellData & setGameCells to the array list
+    //  it will break the code as such eslint is disable for the next line.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <GridContainer>{allCells.map((elm) => elm)}</GridContainer>;
+  return <GridContainer>{allCellComponent.map((cell) => cell)}</GridContainer>;
 };
 
 export default GameGrid;
