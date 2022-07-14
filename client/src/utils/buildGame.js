@@ -24,52 +24,66 @@ const buildGame = ({ gridSize, bombFlagAmount }) => {
     allCellComponent.push(<GameCell key={cell} refObj={cell} />);
   }
 
-  // console.log(toTally);
   toTally.forEach((location) => {
     addTally(allCellData[location]);
   });
   return [allCellComponent, allCellData];
 };
 
+// TODO: The code in here needs to be moved around as there is alot of concerns going on.
 const findAllLocation = (start, range, rowLength) => {
   let foundLocations = [];
 
-  foundLocations.push(findLocation(start, "left", range, rowLength));
-  foundLocations.push(findLocation(start, "right", range, rowLength));
   foundLocations.push(findLocation(start, "up", range, rowLength));
   foundLocations.push(findLocation(start, "down", range, rowLength));
-  foundLocations.push(
-    findLocation(
-      findLocation(start, "up", range, rowLength),
-      "left",
-      range,
-      rowLength
-    )
-  );
-  foundLocations.push(
-    findLocation(
-      findLocation(start, "up", range, rowLength),
-      "right",
-      range,
-      rowLength
-    )
-  );
-  foundLocations.push(
-    findLocation(
-      findLocation(start, "down", range, rowLength),
-      "left",
-      range,
-      rowLength
-    )
-  );
-  foundLocations.push(
-    findLocation(
-      findLocation(start, "down", range, rowLength),
-      "right",
-      range,
-      rowLength
-    )
-  );
+
+  let leftEdges = new Array(range / rowLength)
+    .fill(0)
+    .map((e, index) => index * rowLength);
+  let rightEdges = new Array(range / rowLength)
+    .fill(0)
+    .map((e, index) => (index + 1) * rowLength - 1);
+
+  if (undefined === rightEdges.find((edge) => edge === start)) {
+    foundLocations.push(findLocation(start, "right", range, rowLength));
+    foundLocations.push(
+      findLocation(
+        findLocation(start, "up", range, rowLength),
+        "right",
+        range,
+        rowLength
+      )
+    );
+    foundLocations.push(
+      findLocation(
+        findLocation(start, "down", range, rowLength),
+        "right",
+        range,
+        rowLength
+      )
+    );
+  }
+  if (undefined === leftEdges.find((edge) => edge === start)) {
+    foundLocations.push(findLocation(start, "left", range, rowLength));
+
+    foundLocations.push(
+      findLocation(
+        findLocation(start, "up", range, rowLength),
+        "left",
+        range,
+        rowLength
+      )
+    );
+
+    foundLocations.push(
+      findLocation(
+        findLocation(start, "down", range, rowLength),
+        "left",
+        range,
+        rowLength
+      )
+    );
+  }
 
   console.log(foundLocations);
   return foundLocations.filter((x) => {
@@ -84,7 +98,6 @@ const findAllLocation = (start, range, rowLength) => {
 const findLocation = (start, direction, range, rowLength) => {
   const isLocationValid = (test) => {
     let error = false;
-    // if (test === undefined) return error;
     if (test < 0) return error;
     if (test > range) return error;
     return test;
