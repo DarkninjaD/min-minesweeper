@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useAppContext } from "../../context/appContext";
 import { useEffect } from "react";
-import buildGame from "../../utils/BuildGame";
+import buildGame from "../../utils/buildGame";
 
 const GameGrid = () => {
   const { difficult, setGameCells } = useAppContext();
